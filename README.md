@@ -31,9 +31,10 @@ In your [`Cask`][cask] file:
 (depends-on "fancy-battery")
 ```
 
-In your `init.el`:
+In your `init.el`, `.emacs`, or other config file:
 
 ```cl
+;; Start emacs with fancy-battery-mode enabled
 (add-hook 'after-init-hook #'fancy-battery-mode)
 ```
 
