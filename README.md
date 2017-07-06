@@ -46,9 +46,9 @@ Appearance
 ----------
 
 The original fancy-battery-mode provided customizable faces
-* `fancy-battery-critical' (inherited from your theme's `error' face)
-* `fancy-battery-charging' (inherited from `success')
-* `fancy-battery-discharging' (inherited from `warning')
+* `fancy-battery-critical` (inherited from your theme's `error` face)
+* `fancy-battery-charging` (inherited from `success`)
+* `fancy-battery-discharging` (inherited from `warning`)
 
 These are still available in the stable build (master branch)
 
