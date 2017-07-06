@@ -61,6 +61,31 @@ available.
 Has no effect if `fancy-battery-mode-line' does not evaluate
 `fancy-battery-default-mode-line'.")
 
+
+;; Set to t if you want to see these
+;;
+;; Example: this next line will display the time until charge/discharge
+(setq fancy-battery--show-time-mixed-format t)
+
+(setq fancy-battery--show-percentage t)
+(setq fancy-battery--show-status-verbose t)
+(setq fancy-battery--show-power-source t)
+
+(defcustom fancy-battery--show-current-capacity nil "asdf")
+(defcustom fancy-battery--show-rate-of-charge-or-discharge nil "asdf")
+(defcustom fancy-battery--show-status-verbose nil "asdf")
+(defcustom fancy-battery--show-status nil "asdf")
+(defcustom fancy-battery--show-temp nil "asdf")
+(defcustom fancy-battery--show-power-source nil "asdf")
+(defcustom fancy-battery--show-percentage nil "asdf")
+(defcustom fancy-battery--show-time-in-minutes nil "asdf")
+(defcustom fancy-battery--show-time-in-hours nil "asdf")
+(defcustom fancy-battery--show-time-mixed-format nil "asdf")
+(defcustom fancy-battery--show-linux-driver-version nil "asdf")
+(defcustom fancy-battery--show-apm-bios-version nil "asdf")
+(defcustom fancy-battery--show-apm-bios-status-verbose nil "asdf")
+(defcustom fancy-battery--show-bsd-power-saving-mode-state nil "asdf")
+
 ;;
 ;; Faces
 ;; -----
@@ -75,6 +100,53 @@ Has no effect if `fancy-battery-mode-line' does not evaluate
 
 (defface fancy-battery-discharging '((t :inherit warning))
   "Face for charging battery status."
+  :group 'fancy-battery)
+
+(defface fancy-battery--default-face '((t :inherit mode-line-highlight))
+  "Face for charging battery status."
+  :group 'fancy-battery)
+
+(defface fancy-battery--current-capacity-face '((t :inherit fancy-battery-default-face))
+  "thing"
+  :group 'fancy-battery)
+(defface fancy-battery--rate-of-charge-or-discharge-face '((t :inherit fancy-battery-default-face))
+  "thing"
+  :group 'fancy-battery)
+(defface fancy-battery--status-verbose-face '((t :inherit fancy-battery-default-face))
+  "thing"
+  :group 'fancy-battery)
+(defface fancy-battery--status-face '((t :inherit fancy-battery-default-face))
+  "thing"
+  :group 'fancy-battery)
+(defface fancy-battery--temp-face '((t :inherit fancy-battery-default-face))
+  "thing"
+  :group 'fancy-battery)
+(defface fancy-battery--power-source-face '((t :inherit fancy-battery-default-face))
+  "thing"
+  :group 'fancy-battery)
+(defface fancy-battery--percentage-face '((t :inherit fancy-battery-default-face))
+  "thing"
+  :group 'fancy-battery)
+(defface fancy-battery--time-in-minutes-face '((t :inherit fancy-battery-default-face))
+  "thing"
+  :group 'fancy-battery)
+(defface fancy-battery--time-in-hours-face '((t :inherit fancy-battery-default-face))
+  "thing"
+  :group 'fancy-battery)
+(defface fancy-battery--time-mixed-format-face '((t :inherit fancy-battery-default-face))
+  "thing"
+  :group 'fancy-battery)
+(defface fancy-battery--linux-driver-version-face '((t :inherit fancy-battery-default-face))
+  "thing"
+  :group 'fancy-battery)
+(defface fancy-battery--apm-bios-version-face '((t :inherit fancy-battery-default-face))
+  "thing"
+  :group 'fancy-battery)
+(defface fancy-battery--apm-bios-status-verbose-face '((t :inherit fancy-battery-default-face))
+  "thing"
+  :group 'fancy-battery)
+(defface fancy-battery--bsd-power-saving-mode-state-face '((t :inherit fancy-battery-default-face))
+  "thing"
   :group 'fancy-battery)
 
 ;;
