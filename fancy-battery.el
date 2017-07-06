@@ -263,6 +263,7 @@ percentage.  If the battery is critical, use
 `battery-critical-face'.  Otherwise use `fancy-battery-charging'
 or `fancy-battery-discharging', depending on the current state."
 
+  ;; (message "show time: %S" fancy-battery--show-time-mixed-format)
   (when fancy-battery-last-status
     (let* (
 
@@ -324,15 +325,15 @@ or `fancy-battery-discharging', depending on the current state."
 `fancy-battery--power-source'
     Aka 'AC line status (verbose)'
 
-`fancy-battery--battery-load-percentage'
+`fancy-battery--percentage'
 
-`fancy-battery--remaining-time-in-minutes'
+`fancy-battery--time-in-minutes'
     Remaining time (to charge or discharge) in minutes
 
-`fancy-battery--remaining-time-in-hours'
+`fancy-battery--time-in-hours'
     Remaining time (to charge or discharge) in hours
 
-`fancy-battery--remaining-time-in-hours-and-min'
+`fancy-battery--time-mixed-format'
     Remaining time (to charge or discharge) in the form `h:min'
 
 `fancy-battery--linux-driver-version'
@@ -378,10 +379,10 @@ or `fancy-battery-discharging', depending on the current state."
   ;; This function exists to translate the %-sequences into an alist of.
   ;; For instance, this function executes the line
   ;; 
-  ;;     (fancy-battery--remaining-time-in-minutes . (cdr (assq ?m status)))
+  ;;     (fancy-battery--time-in-minutes . (cdr (assq ?m status)))
   ;;
   ;; in order to map the 'Remaining time (to charge or discharge) in
-  ;; minutes' to the symbol `fancy-battery--remaining-time-in-minutes'
+  ;; minutes' to the symbol `fancy-battery--time-in-minutes'
 
   ;; REMAPPING THE %-SEQUENCES
   ;; --------------------------
@@ -403,7 +404,7 @@ or `fancy-battery-discharging', depending on the current state."
   ;; NOTE: If a %-sequence is not provided by the
   ;; `battery-status-function', then the corresponding fancy-battery
   ;; variable here will be set to nil.
-  (message "battery-info-key: %S" battery-info-key)
+  ;; (message "battery-info-key: %S" battery-info-key)
   (pcase battery-info-key
    ;; %-sequences that are generally available:
    ('fancy-battery--current-capacity                  (cdr (assq ?c status)))
@@ -412,11 +413,11 @@ or `fancy-battery-discharging', depending on the current state."
    ('fancy-battery--status                            (cdr (assq ?b status)))
    ('fancy-battery--temp                              (cdr (assq ?d status)))
    ('fancy-battery--power-source                      (cdr (assq ?L status)))
-   ('fancy-battery--battery-load-percentage           (cdr (assq ?p status)))
+   ('fancy-battery--percentage                        (cdr (assq ?p status)))
    
-   ('fancy-battery--remaining-time-in-minutes         (cdr (assq ?m status)))
-   ('fancy-battery--remaining-time-in-hours           (cdr (assq ?h status)))
-   ('fancy-battery--remaining-time-in-hours-and-min   (cdr (assq ?t status)))
+   ('fancy-battery--time-in-minutes                   (cdr (assq ?m status)))
+   ('fancy-battery--time-in-hours                     (cdr (assq ?h status)))
+   ('fancy-battery--time-mixed-format                 (cdr (assq ?t status)))
    ;; `battery-linux-proc-apm' only:
    ('fancy-battery--linux-driver-version              (cdr (assq ?v status)))
    ('fancy-battery--apm-bios-version                  (cdr (assq ?V status)))
