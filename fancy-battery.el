@@ -180,9 +180,7 @@ This variable is an abnormal hook (i.e. the hook functions either
 accept parameter(s), or return a value). See Info
 Node `(elisp)Hooks'."
   :group 'fancy-battery
-  :type 'hook
-  ;; TODO figure out why package-version is here (and why it's outdated!)
-  :package-version '(fancy-battery . "0.2"))
+  :type 'hook)
 
 (defun fancy-battery-default-mode-line ()
   "Assemble a mode line string for Fancy Battery Mode.
@@ -196,26 +194,40 @@ or `fancy-battery-discharging', depending on the current state."
   (when fancy-battery-last-status
     (let* (
 
-           (time '(fancy-battery--translate-status
+           (time (fancy-battery--translate-status
                   'fancy-battery--remaining-time-in-hours-and-min
-                  'fancy-battery-last-status))
-           (face (pcase (cdr (assq ?b fancy-battery-last-status))
-                   ("!" 'fancy-battery-critical)
-                   ("+" 'fancy-battery-charging)
-                   (_ 'fancy-battery-discharging)))
-           (percentage (cdr (assq ?p fancy-battery-last-status)))
-           (status-display (if
-                               (or fancy-battery-show-percentage
-                                   (string= time "N/A"))
-                               (and percentage (concat percentage "%%"))
-                             time)))
-      (if status-display
-          (propertize status-display 'face face)
+                  fancy-battery-last-status))
+           (percentage (fancy-battery--translate-status
+                        'fancy-battery--battery-load-percentage
+                        fancy-battery-last-status))
+           (status-verbose (fancy-battery--translate-status
+                            'fancy-battery--status-verbose
+                            fancy-battery-last-status))
+           (power-source (fancy-battery--translate-status
+                            'fancy-battery--power-source
+                            fancy-battery-last-status))
+           ;; (face (pcase (cdr (assq ?b fancy-battery-last-status))
+           ;;         ("!" 'fancy-battery-critical)
+           ;;         ("+" 'fancy-battery-charging)
+           ;;         (_ 'fancy-battery-discharging)))
+           ;; (status-display (if
+           ;;                     (or fancy-battery-show-percentage
+           ;;                         (string= time "N/A"))
+           ;;                     (and percentage (concat percentage "%%"))
+           ;;                   time))
+           )
+      (message "percentage %S" percentage)
+      (message "time %S" time)
+      (message "status-verbose %S" status-verbose)
+      (message "power-source %S" power-source)
+      ;; (if nil ;status-display
+          ;; (propertize status-display 'face face)
         ;; Battery status is not available
-        (propertize "N/A" 'face 'error)))))
+      ;; (propertize "N/A" 'face 'error)))
+    )))
 
 
-(defun fancy-battery--translate-status (status battery-info-key)
+(defun fancy-battery--translate-status (battery-info-key status)
   "Extract information from `status' (i.e. the output of calling
   the `battery-status-function'). Recognize the
   following keys (and return appropriate data):
@@ -237,8 +249,8 @@ or `fancy-battery-discharging', depending on the current state."
 `fancy-battery--temp'
     Temperature (in degrees Celsius)
 
-`fancy-battery--AC-line-status'
-    AC line status (verbose)
+`fancy-battery--power-source'
+    Aka 'AC line status (verbose)'
 
 `fancy-battery--battery-load-percentage'
 
@@ -319,15 +331,17 @@ or `fancy-battery-discharging', depending on the current state."
   ;; NOTE: If a %-sequence is not provided by the
   ;; `battery-status-function', then the corresponding fancy-battery
   ;; variable here will be set to nil.
-  (pcase (battery-info-key)
+  (message "battery-info-key: %S" battery-info-key)
+  (pcase battery-info-key
    ;; %-sequences that are generally available:
    ('fancy-battery--current-capacity                  (cdr (assq ?c status)))
    ('fancy-battery--rate-of-charge-or-discharge       (cdr (assq ?r status)))
    ('fancy-battery--status-verbose                    (cdr (assq ?B status)))
    ('fancy-battery--status                            (cdr (assq ?b status)))
    ('fancy-battery--temp                              (cdr (assq ?d status)))
-   ('fancy-battery--AC-line-status                    (cdr (assq ?L status)))
+   ('fancy-battery--power-source                      (cdr (assq ?L status)))
    ('fancy-battery--battery-load-percentage           (cdr (assq ?p status)))
+   
    ('fancy-battery--remaining-time-in-minutes         (cdr (assq ?m status)))
    ('fancy-battery--remaining-time-in-hours           (cdr (assq ?h status)))
    ('fancy-battery--remaining-time-in-hours-and-min   (cdr (assq ?t status)))
