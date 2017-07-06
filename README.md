@@ -1,7 +1,7 @@
 fancy-battery
 =============
 
-[![Unmaintained](https://img.shields.io/maintenance/yes/2015.svg)]() [![License GPL 3][badge-license]][copying]
+[![License GPL 3][badge-license]][copying]
 
 Display battery status in Emacs mode line ([Solarized Light][]):
 
@@ -45,63 +45,30 @@ In your `init.el`, `.emacs`, or other config file:
 Appearance
 ----------
 
-When the battery is charging, Fancy Battery shows the remaining time until full
-charge in `fancy-battery-charging` face, which inherits from the built-in
-`success` face:
+The original fancy-battery-mode provided customizable faces
+* `fancy-battery-critical' (inherited from your theme's `error' face)
+* `fancy-battery-charging' (inherited from `success')
+* `fancy-battery-discharging' (inherited from `warning')
 
-![Charging time](https://raw.githubusercontent.com/lunaryorn/fancy-battery.el/master/images/charging-remaining-time.png)
-
-If no information about the remaining time is available, it falls back to
-the charge level of the battery.  If you prefer to always see the charge level,
-set `fancy-battery-show-percentage` to `t`:
-
-![Charging percentage](https://raw.githubusercontent.com/lunaryorn/fancy-battery.el/master/images/charging-percentage.png)
-
-When the AC plug is disconnected, the text changes to the
-`fancy-battery-discharging` face, which inherits from the built-in `warning`
-face.  The time now indicates how long the battery will last.
-
-![Discharging time](https://raw.githubusercontent.com/lunaryorn/fancy-battery.el/master/images/discharging-remaining-time.png)
-
-As soon as the battery level gets critically low, the face changes to
-`fancy-battery-critical`, which inherits form the built-in `error` face, to
-indicate that you should really grab the AC plug now:
-
-![Critical time](https://raw.githubusercontent.com/lunaryorn/fancy-battery.el/master/images/critical-remaining-time.png)
-
-**Note:** On OS X Emacs currently fails to report critical battery status due to
-an issue in `battery-pmset`.  See Emacs bug [#18157][] for details.
-
-[#18157]: http://debbugs.gnu.org/cgi/bugreport.cgi?bug=18157
+These are still available in the stable build (master branch)
 
 Customization
 -------------
-
-Add your own functions to `fancy-battery-status-update-functions` to receive
-battery status updates.
 
 Customize `fancy-battery-critical`, `fancy-battery-charging`, and
 `fancy-battery-discharging` to change the status colours used by the default
 mode line format.
 
-Set `fancy-battery-show-percentage` to a non-nil value to show the load
-percentage instead of the remaining time.  To use an entirely different format,
-customize `fancy-battery-mode-line`.  See [Mode Line Format][] for documentation
-of the format, and take a look at `fancy-battery-default-mode-line` to see how
-the default value is built.
-
-Customize `mode-line-misc-info` and `mode-line-format` to change the position at
-which the battery status appears in the mode line.  Typically it's at the very
-end after the minor mode list, so you may want to move `mode-line-misc-info`
-more to the front of `mode-line-format`.
-
 Customize `battery-update-interval` to change the interval at which battery
 information is updated, and `battery-status-function` to add your own battery
 status backend.
 
-All options are available via `M-x customize-group RET fancy-battery`.
-
-[Mode Line Format]: http://www.gnu.org/software/emacs/manual/html_node/elisp/Mode-Line-Format.html
+Coming soon: will provide a 'mode-line-format'-esque interface for customizing features such as
+* power source
+* format for battery time left to charge/discharge (e.g. minutes, hours, hours:minutes)
+* battery capacity (mAh or mWh)
+* rate of discharge
+* battery temperature
 
 License
 -------
