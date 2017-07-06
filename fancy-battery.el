@@ -196,11 +196,9 @@ or `fancy-battery-discharging', depending on the current state."
   (when fancy-battery-last-status
     (let* (
 
-           (translated-status (fancy-battery--translate-battery-status
-                               'fancy-battery-last-status))
-           ;; (time (cdr (assq ?t fancy-battery-last-status)))
-           (time (cdr (assq 'fancy-battery--remaining-time-in-hours-and-min
-                            translated-status)))
+           (time '(fancy-battery--translate-status
+                  'fancy-battery--remaining-time-in-hours-and-min
+                  'fancy-battery-last-status))
            (face (pcase (cdr (assq ?b fancy-battery-last-status))
                    ("!" 'fancy-battery-critical)
                    ("+" 'fancy-battery-charging)
@@ -217,9 +215,10 @@ or `fancy-battery-discharging', depending on the current state."
         (propertize "N/A" 'face 'error)))))
 
 
-(defun fancy-battery--translate-battery-status (status)
-  "Reformat the output of the `battery-status-function'.
-Return an alist with the following keys:
+(defun fancy-battery--translate-status (status battery-info-key)
+  "Extract information from `status' (i.e. the output of calling
+  the `battery-status-function'). Recognize the
+  following keys (and return appropriate data):
 
 `fancy-battery--current-capacity'
     Current capacity (mAh or mWh)
@@ -320,40 +319,25 @@ Return an alist with the following keys:
   ;; NOTE: If a %-sequence is not provided by the
   ;; `battery-status-function', then the corresponding fancy-battery
   ;; variable here will be set to nil.
-  '(   
+  (pcase (battery-info-key)
    ;; %-sequences that are generally available:
-   ;;     %c Current capacity (mAh or mWh)
-   ;;     %r Current rate of charge or discharge
-   ;;     %B Battery status (verbose)
-   ;;        Example: 'critical', 'high', 'low', 'charging'
-   ;;     %b Battery status: empty means high, `-' means low,
-   ;;        `!' means critical, and `+' means charging
-   ;;     %d Temperature (in degrees Celsius)
-   ;;     %L AC line status (verbose)
-   ;;     %p Battery load percentage
-   ;;     %m Remaining time (to charge or discharge) in minutes
-   ;;     %h Remaining time (to charge or discharge) in hours
-   ;;     %t Remaining time (to charge or discharge) in the form `h:min'"
-   ('fancy-battery--current-capacity                  . (cdr (assq ?c status)))
-   ('fancy-battery--rate-of-charge-or-discharge       . (cdr (assq ?r status)))
-   ('fancy-battery--status-verbose                    . (cdr (assq ?B status)))
-   ('fancy-battery--status                            . (cdr (assq ?b status)))
-   ('fancy-battery--temp                              . (cdr (assq ?d status)))
-   ('fancy-battery--AC-line-status                    . (cdr (assq ?L status)))
-   ('fancy-battery--battery-load-percentage           . (cdr (assq ?p status)))
-   ('fancy-battery--remaining-time-in-minutes         . (cdr (assq ?m status)))
-   ('fancy-battery--remaining-time-in-hours           . (cdr (assq ?h status)))
-   ('fancy-battery--remaining-time-in-hours-and-min   . (cdr (assq ?t status)))
+   ('fancy-battery--current-capacity                  (cdr (assq ?c status)))
+   ('fancy-battery--rate-of-charge-or-discharge       (cdr (assq ?r status)))
+   ('fancy-battery--status-verbose                    (cdr (assq ?B status)))
+   ('fancy-battery--status                            (cdr (assq ?b status)))
+   ('fancy-battery--temp                              (cdr (assq ?d status)))
+   ('fancy-battery--AC-line-status                    (cdr (assq ?L status)))
+   ('fancy-battery--battery-load-percentage           (cdr (assq ?p status)))
+   ('fancy-battery--remaining-time-in-minutes         (cdr (assq ?m status)))
+   ('fancy-battery--remaining-time-in-hours           (cdr (assq ?h status)))
+   ('fancy-battery--remaining-time-in-hours-and-min   (cdr (assq ?t status)))
    ;; `battery-linux-proc-apm' only:
-   ;;     %v Linux driver version
-   ;;     %V APM BIOS version
-   ;;     %I APM BIOS status (verbose)
-   ('fancy-battery--linux-driver-version              . (cdr (assq ?v status)))
-   ('fancy-battery--apm-bios-version                  . (cdr (assq ?V status)))
-   ('fancy-battery--apm-bios-status-verbose           . (cdr (assq ?I status)))
+   ('fancy-battery--linux-driver-version              (cdr (assq ?v status)))
+   ('fancy-battery--apm-bios-version                  (cdr (assq ?V status)))
+   ('fancy-battery--apm-bios-status-verbose           (cdr (assq ?I status)))
    ;; `battery-bsd-apm' only:
-   ;;     %P Advanced power saving mode state (verbose)
-   ('fancy-battery--bsd-power-saving-mode-state       . (cdr (assq ?P status)))
+   ('fancy-battery--bsd-power-saving-mode-state       (cdr (assq ?P status)))
+   (_                  (error "Unknown battery-info-key: %S" battery-info-key))
    )
   )
 
@@ -394,5 +378,5 @@ use the cached status in `fancy-battery-last-status'."
 
 ;(provide 'fancy-battery)
 (krista-fancy-battery-mode t)
-(message "Buffer evaluated")
+(message "Buffer evaluated!!!")
 ;;; fancy-battery.el ends here
