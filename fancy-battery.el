@@ -266,33 +266,62 @@ or `fancy-battery-discharging', depending on the current state."
   ;; (message "show time: %S" fancy-battery--show-time-mixed-format)
   (when fancy-battery-last-status
     (let* (
-
-           (time (fancy-battery--translate-status
-                  'fancy-battery--remaining-time-in-hours-and-min
-                  fancy-battery-last-status))
-           (percentage (fancy-battery--translate-status
-                        'fancy-battery--battery-load-percentage
-                        fancy-battery-last-status))
-           (status-verbose (fancy-battery--translate-status
-                            'fancy-battery--status-verbose
-                            fancy-battery-last-status))
-           (power-source (fancy-battery--translate-status
-                            'fancy-battery--power-source
-                            fancy-battery-last-status))
-           ;; (face (pcase (cdr (assq ?b fancy-battery-last-status))
-           ;;         ("!" 'fancy-battery-critical)
-           ;;         ("+" 'fancy-battery-charging)
-           ;;         (_ 'fancy-battery-discharging)))
+           ;; Extract useful variables from `fancy-battery-last-status'
+           (time
+            (if fancy-battery--show-time-mixed-format
+                (propertize
+                 (fancy-battery--translate-status 'fancy-battery--time-mixed-format
+                                                  fancy-battery-last-status)
+                 'face 'fancy-battery--time-mixed-format-face)
+              nil))
+           
+           (percentage
+            (if fancy-battery--show-percentage
+                (propertize
+                 (fancy-battery--translate-status 'fancy-battery--percentage
+                                                  fancy-battery-last-status)
+              'face 'fancy-battery--percentage-face)
+              nil))
+           
+           (status-verbose
+            (if fancy-battery--show-status-verbose
+                (propertize
+                 (fancy-battery--translate-status 'fancy-battery--status-verbose
+                                                  fancy-battery-last-status)
+                 'face 'fancy-battery--status-verbose-face)
+              nil))
+           
+           (power-source
+            (if fancy-battery--show-power-source
+                (propertize
+                 (fancy-battery--translate-status 'fancy-battery--power-source
+                                                  fancy-battery-last-status)
+                 'face 'fancy-battery--power-source-face)
+              nil))
            ;; (status-display (if
            ;;                     (or fancy-battery-show-percentage
            ;;                         (string= time "N/A"))
            ;;                     (and percentage (concat percentage "%%"))
            ;;                   time))
            )
-      (message "percentage %S" percentage)
-      (message "time %S" time)
-      (message "status-verbose %S" status-verbose)
-      (message "power-source %S" power-source)
+      ;; Set the face based on the battery status
+      ;; (face (pcase (cdr (assq ?b fancy-battery-last-status))
+      ;;         ("!" 'fancy-battery-critical)
+      ;;         ("+" 'fancy-battery-charging)
+      ;;         (_ 'fancy-battery-discharging)))
+      ;; (message "percentage %S" percentage)
+      ;; (message "status-verbose %S" status-verbose)
+      ;; (message "power-source %S" power-source)
+      (concat percentage
+              (propertize "%%" 'face 'fancy-battery--percentage-face)
+              (propertize " " 'face 'fancy-battery--default-face)
+              status-verbose
+              (propertize " on " 'face 'fancy-battery--default-face)
+              power-source
+              " ("
+              time
+              (propertize " left" 'face 'fancy-battery--default-face)
+              ")")
       ;; (if nil ;status-display
           ;; (propertize status-display 'face face)
         ;; Battery status is not available
