@@ -90,15 +90,15 @@ Has no effect if `fancy-battery-mode-line' does not evaluate
 ;; Faces
 ;; -----
 ;;
-(defface fancy-battery-critical '((t :inherit error))
+(defface fancy-battery-critical-face '((t :inherit error))
   "Face for critical battery status"
   :group 'fancy-battery)
 
-(defface fancy-battery-charging '((t :inherit success))
+(defface fancy-battery-charging-face '((t :inherit success))
   "Face for charging battery status."
   :group 'fancy-battery)
 
-(defface fancy-battery-discharging '((t :inherit warning))
+(defface fancy-battery-discharging-face '((t :inherit warning))
   "Face for charging battery status."
   :group 'fancy-battery)
 
