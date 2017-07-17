@@ -65,26 +65,26 @@ Has no effect if `fancy-battery-mode-line' does not evaluate
 ;; Set to t if you want to see these
 ;;
 ;; Example: this next line will display the time until charge/discharge
-(setq fancy-battery--show-time-mixed-format t)
+(setq fancy-battery-show-time-mixed-format t)
 
-(setq fancy-battery--show-percentage t)
-(setq fancy-battery--show-status-verbose t)
-(setq fancy-battery--show-power-source t)
+(setq fancy-battery-show-percentage t)
+(setq fancy-battery-show-status-verbose t)
+(setq fancy-battery-show-power-source t)
 
-(defcustom fancy-battery--show-current-capacity nil "asdf")
-(defcustom fancy-battery--show-rate-of-charge-or-discharge nil "asdf")
-(defcustom fancy-battery--show-status-verbose nil "asdf")
-(defcustom fancy-battery--show-status nil "asdf")
-(defcustom fancy-battery--show-temp nil "asdf")
-(defcustom fancy-battery--show-power-source nil "asdf")
-(defcustom fancy-battery--show-percentage nil "asdf")
-(defcustom fancy-battery--show-time-in-minutes nil "asdf")
-(defcustom fancy-battery--show-time-in-hours nil "asdf")
-(defcustom fancy-battery--show-time-mixed-format nil "asdf")
-(defcustom fancy-battery--show-linux-driver-version nil "asdf")
-(defcustom fancy-battery--show-apm-bios-version nil "asdf")
-(defcustom fancy-battery--show-apm-bios-status-verbose nil "asdf")
-(defcustom fancy-battery--show-bsd-power-saving-mode-state nil "asdf")
+(defcustom fancy-battery-show-current-capacity nil "asdf")
+(defcustom fancy-battery-show-rate-of-charge-or-discharge nil "asdf")
+(defcustom fancy-battery-show-status-verbose nil "asdf")
+(defcustom fancy-battery-show-status nil "asdf")
+(defcustom fancy-battery-show-temp nil "asdf")
+(defcustom fancy-battery-show-power-source nil "asdf")
+(defcustom fancy-battery-show-percentage nil "asdf")
+(defcustom fancy-battery-show-time-in-minutes nil "asdf")
+(defcustom fancy-battery-show-time-in-hours nil "asdf")
+(defcustom fancy-battery-show-time-mixed-format nil "asdf")
+(defcustom fancy-battery-show-linux-driver-version nil "asdf")
+(defcustom fancy-battery-show-apm-bios-version nil "asdf")
+(defcustom fancy-battery-show-apm-bios-status-verbose nil "asdf")
+(defcustom fancy-battery-show-bsd-power-saving-mode-state nil "asdf")
 
 ;;
 ;; Faces
