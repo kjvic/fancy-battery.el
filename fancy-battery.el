@@ -102,50 +102,50 @@ Has no effect if `fancy-battery-mode-line' does not evaluate
   "Face for charging battery status."
   :group 'fancy-battery)
 
-(defface fancy-battery--default-face '((t :inherit mode-line-highlight))
+(defface fancy-battery-default-face '((t :inherit mode-line-highlight))
   "Face for charging battery status."
   :group 'fancy-battery)
 
-(defface fancy-battery--current-capacity-face '((t :inherit fancy-battery-default-face))
+(defface fancy-battery-current-capacity-face '((t :inherit fancy-battery-default-face))
   "thing"
   :group 'fancy-battery)
-(defface fancy-battery--rate-of-charge-or-discharge-face '((t :inherit fancy-battery-default-face))
+(defface fancy-battery-rate-of-charge-or-discharge-face '((t :inherit fancy-battery-default-face))
   "thing"
   :group 'fancy-battery)
-(defface fancy-battery--status-verbose-face '((t :inherit fancy-battery-default-face))
+(defface fancy-battery-status-verbose-face '((t :inherit fancy-battery-default-face))
   "thing"
   :group 'fancy-battery)
-(defface fancy-battery--status-face '((t :inherit fancy-battery-default-face))
+(defface fancy-battery-status-face '((t :inherit fancy-battery-default-face))
   "thing"
   :group 'fancy-battery)
-(defface fancy-battery--temp-face '((t :inherit fancy-battery-default-face))
+(defface fancy-battery-temp-face '((t :inherit fancy-battery-default-face))
   "thing"
   :group 'fancy-battery)
-(defface fancy-battery--power-source-face '((t :inherit fancy-battery-default-face))
+(defface fancy-battery-power-source-face '((t :inherit fancy-battery-default-face))
   "thing"
   :group 'fancy-battery)
-(defface fancy-battery--percentage-face '((t :inherit fancy-battery-default-face))
+(defface fancy-battery-percentage-face '((t :inherit fancy-battery-default-face))
   "thing"
   :group 'fancy-battery)
-(defface fancy-battery--time-in-minutes-face '((t :inherit fancy-battery-default-face))
+(defface fancy-battery-time-in-minutes-face '((t :inherit fancy-battery-default-face))
   "thing"
   :group 'fancy-battery)
-(defface fancy-battery--time-in-hours-face '((t :inherit fancy-battery-default-face))
+(defface fancy-battery-time-in-hours-face '((t :inherit fancy-battery-default-face))
   "thing"
   :group 'fancy-battery)
-(defface fancy-battery--time-mixed-format-face '((t :inherit fancy-battery-default-face))
+(defface fancy-battery-time-mixed-format-face '((t :inherit fancy-battery-default-face))
   "thing"
   :group 'fancy-battery)
-(defface fancy-battery--linux-driver-version-face '((t :inherit fancy-battery-default-face))
+(defface fancy-battery-linux-driver-version-face '((t :inherit fancy-battery-default-face))
   "thing"
   :group 'fancy-battery)
-(defface fancy-battery--apm-bios-version-face '((t :inherit fancy-battery-default-face))
+(defface fancy-battery-apm-bios-version-face '((t :inherit fancy-battery-default-face))
   "thing"
   :group 'fancy-battery)
-(defface fancy-battery--apm-bios-status-verbose-face '((t :inherit fancy-battery-default-face))
+(defface fancy-battery-apm-bios-status-verbose-face '((t :inherit fancy-battery-default-face))
   "thing"
   :group 'fancy-battery)
-(defface fancy-battery--bsd-power-saving-mode-state-face '((t :inherit fancy-battery-default-face))
+(defface fancy-battery-bsd-power-saving-mode-state-face '((t :inherit fancy-battery-default-face))
   "thing"
   :group 'fancy-battery)
 
